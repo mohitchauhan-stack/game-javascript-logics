@@ -26,7 +26,8 @@
                             0
                         </span>
                     </h3>
-                </div><div class="info">
+                </div>
+                <div class="info">
                     <h3>
                         Time:
                         <span class="time">
@@ -37,8 +38,20 @@
             </div>
             <div class="board"></div>
         </section>
+        <div class="modal flex">
+            <div class="start__game flex">
+                <h3>Welcome to Snake Game 🐍</h3>
+                <button class="btn btn__start"><h4>Start</h4></button>
+            </div>
+            <div class="game__over">
+                <h3>Game Over!</h3>
+                <button class="btn btn__restart" onclick="restartGame()">
+                    Restart
+                </button>
+            </div>
+        </div>
     </main>
     
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
