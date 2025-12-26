@@ -75,10 +75,10 @@ h5{
 }
 
 .btn{
-    padding: var(--space-xs) var(--space-xl);
+    padding: var(--space-sm) var(--space-lg);
     cursor: pointer;
     border: none;
-    border-radius: var(--space-2xl);
+    border-radius: var(--space-sm);
     transition: all .3s;
 }
 
@@ -149,5 +149,5 @@ section{
 }
 
 .game__over{
-    display: none;
+    display: none ;
 }
