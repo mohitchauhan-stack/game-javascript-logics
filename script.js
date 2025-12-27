@@ -74,6 +74,8 @@ function render(){
     if(head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows){
         // alert ('Game Over !');
         clearInterval(intervalId);
+        clearInterval(timerIntervalId);
+
         score = 0;
         scoreElement.innerText = score;
         time = `00:00`;
@@ -84,38 +86,40 @@ function render(){
     }
 
     // -- FOOD - CONSUME - LOGIC --
+    let ateFood = false;
+
     if(head.x == food.x && head.y == food.y){
         blocks[ `${food.x}-${food.y}` ].classList.remove('food');
         food = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows)};
         blocks[ `${food.x}-${food.y}` ].classList.add('food');
         snake.unshift(head);
 
-        score += 1;
+        score++;
         scoreElement.innerText = score;
 
         if(score > highScore) {
             highScore = score;
-            localStorage.setItem('highScore', highScore.toString());
+            localStorage.setItem('highScore', highScore);
         }
+        ateFood = true
     }
 
-    snake.forEach( segment => {
-        // console.log(blocks[ `${segment.x}-${segment.y}`]);
-        blocks[ `${segment.x}-${segment.y}`].classList.remove('fill');
-    })
+    // CLEAR OLD SNAKE
+    snake.forEach(segment => {
+        blocks[`${segment.x}-${segment.y}`].classList.remove('fill');
+    });
 
+    // MOVE SNAKE (ONLY ONE UNSHIFT)
     snake.unshift(head);
-    snake.pop();
+    if (!ateFood) {
+        snake.pop();
+    }
 
-    snake.forEach( segment => {
-        // console.log(blocks[ `${segment.x}-${segment.y}`]);
-        blocks[ `${segment.x}-${segment.y}`].classList.add('fill');
-    })
+    // DRAW NEW SNAKE
+    snake.forEach(segment => {
+        blocks[`${segment.x}-${segment.y}`].classList.add('fill');
+    });
 }
-
-// intervalId = setInterval(() => {
-//     // render();
-// }, 250);
 
 startBtn.addEventListener('click', () => {
     modal.style.display = 'none';
@@ -166,7 +170,7 @@ function restartGame() {
 
     // ▶️ START GAME LOOP AGAIN
     intervalId = setInterval(render, 250);
-    
+
     // ▶️ START TIMER AGAIN
     timerIntervalId = setInterval(() => {
         let [min, sec] = time.split(":").map(Number);
