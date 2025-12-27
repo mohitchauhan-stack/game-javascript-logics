@@ -16,7 +16,7 @@ const blockWidth = 50;
 
 let highScore = localStorage.getItem('highScore') || 0;
 let score = 0;
-let time = `00-00`;
+let time = `00:00`;
 
 highScoreElement.innerText = highScore;
 
@@ -24,6 +24,8 @@ const cols = Math.floor(board.clientHeight / blockHeight);
 const rows = Math.floor(board.clientWidth / blockWidth);
 
 let intervalId = null;
+let timerIntervalId = null;
+
 let food = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows)};
 
 
@@ -74,7 +76,7 @@ function render(){
         clearInterval(intervalId);
         score = 0;
         scoreElement.innerText = score;
-        time = `00-00`;
+        time = `00:00`;
         modal.style.display = 'flex';
         startGameModal.style.display = 'none'
         gameOverModal.style.display = 'flex'
@@ -118,8 +120,20 @@ function render(){
 startBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     intervalId = setInterval( () => {
-        render();
+        render()
     }, 250);
+    timerIntervalId = setInterval(() => {
+        let [min, sec] = time.split(":").map(Number);
+
+        if(sec == 59) {
+            min += 1;
+            sec = 0;
+        } else{
+            sec += 1;
+        }
+        time = `${min}:${sec}`;
+        timeElement.innerText = time;
+    }, 1000);
 })
 
 restartBtn.addEventListener('click', restartGame);
@@ -129,6 +143,14 @@ function restartGame() {
     snake.forEach(segment => {
         blocks[ `${segment.x}-${segment.y}` ].classList.remove('fill');
     });
+
+    score = 0;
+    time = `00:00`;
+
+    scoreElement.innerText = score;
+    timeElement.innerText = time;
+    highScoreElement.innerText = highScore;
+
 
     modal.style.display = 'none';
     snake = [
@@ -140,8 +162,9 @@ function restartGame() {
     direction = 'down';
     food = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows)};
     intervalId = setInterval( () => {
-        render();
+        render()
     }, 250);
+    timerIntervalId
 }
 
 addEventListener( 'keydown', (event) => {
