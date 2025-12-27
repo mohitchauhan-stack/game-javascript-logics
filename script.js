@@ -139,6 +139,10 @@ startBtn.addEventListener('click', () => {
 restartBtn.addEventListener('click', restartGame);
 
 function restartGame() {
+    // 🔥 CLEAR OLD INTERVALS (MOST IMPORTANT FIX)
+    clearInterval(intervalId);
+    clearInterval(timerIntervalId);
+
     blocks[ `${food.x}-${food.y}` ].classList.remove('food');
     snake.forEach(segment => {
         blocks[ `${segment.x}-${segment.y}` ].classList.remove('fill');
@@ -151,20 +155,29 @@ function restartGame() {
     timeElement.innerText = time;
     highScoreElement.innerText = highScore;
 
+    snake = [{ x: 1, y: 3 }];
+    direction = 'down';
+    food = {
+        x: Math.floor(Math.random() * cols),
+        y: Math.floor(Math.random() * rows)
+    };
 
     modal.style.display = 'none';
-    snake = [
-        {
-            x: 1,
-            y: 3
+
+    // ▶️ START GAME LOOP AGAIN
+    intervalId = setInterval(render, 250);
+    
+    // ▶️ START TIMER AGAIN
+    timerIntervalId = setInterval(() => {
+        let [min, sec] = time.split(":").map(Number);
+        sec++;
+        if (sec === 60) {
+            min++;
+            sec = 0;
         }
-    ];
-    direction = 'down';
-    food = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows)};
-    intervalId = setInterval( () => {
-        render()
-    }, 250);
-    timerIntervalId
+        time = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+        timeElement.innerText = time;
+    }, 1000);
 }
 
 addEventListener( 'keydown', (event) => {
