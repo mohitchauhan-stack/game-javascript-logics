@@ -1,0 +1,30 @@
+
+
+
+
+@media screen and (max-width: 23.5rem) {
+    html{
+        font-size: 30%;
+    }
+    .container{
+        margin: 0;
+    }
+    :root{
+        /* --space-xs: .2rem;
+        --space-sm: .6rem;
+        --space-md: .8rem;
+        --space-lg: 1.2rem;
+        --space-xl: 1.8rem;
+        --space-2xl: 2.2rem;
+        --space-3xl: 2.2rem;
+
+        --text-para: .8rem;
+        --text-h6: 1.2rem;
+        --text-h5: 1.6rem;
+        --text-h4: 2rem;
+        --text-h3: 2.4rem;
+        --text-h2: 2.8rem;
+        --text-h1: 3.2rem; */
+    }
+
+}

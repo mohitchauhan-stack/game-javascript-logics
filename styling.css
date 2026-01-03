@@ -40,6 +40,7 @@ body{
     --bg-2xDark: hsl(0, 0%, 10%);
     --bg-xDark: hsl(0, 0%, 20%);
     --bg-Dark: hsl(0, 0%, 30%);
+    --bg-snake: purple;
 
     /* --- TEXT - COLOR --- */
     --text-light: hsl(0, 0%, 85%);
@@ -111,17 +112,24 @@ h3{
     width: 100%;
     border: var(--border-md);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
 }
 
 .block{
     /* height: 30px;
     width: 30px; */
-    /* border-radius: var(--space-md); */
+    border-radius: var(--space-3xl);
     border: var(--border-sm);
+    text-align: center;
 }
 
+
+.fill{
+    /* width: 10%;
+    height: 100%; */
+    background-color: var(--bg-snake);
+}
 
 
 
