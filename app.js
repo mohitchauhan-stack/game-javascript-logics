@@ -59,15 +59,15 @@ function renderSnake() {
         alert("GAME OVER !");
         clearInterval(intervalId);
     }
-    // // FOOD-HEAD-CONTACT
-    // if(head.x == food.x && head.y == food.y){
-    //     // FOOD-REMOVE-REGENERATE-&-ADD
-    //     blocks[`${food.x}-${food.y}`].classList.remove("food");
-    //     food = {x: Math.floor(Math.random() * rows), y: Math.floor(Math.random() * cols)};
-    //     blocks[`${food.x}-${food.y}`].classList.add("food");
-    //     // INCREASE-SNAKE
-    //     snake.unshift(head);
-    // }
+    // FOOD-HEAD-CONTACT
+    if(head.x == food.x && head.y == food.y){
+        // FOOD-REMOVE-REGENERATE-&-ADD
+        blocks[`${food.x}-${food.y}`].classList.remove("food");
+        food = {x: Math.floor(Math.random() * rows), y: Math.floor(Math.random() * cols)};
+        blocks[`${food.x}-${food.y}`].classList.add("food");
+        // INCREASE-SNAKE
+        snake.unshift(head);
+    }
     // REMOVE-FILL-BLOCK
     snake.forEach((eachBlock) => {
         blocks[`${eachBlock.x}-${eachBlock.y}`].classList.remove("fill");
